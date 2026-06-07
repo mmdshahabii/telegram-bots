@@ -19,8 +19,8 @@
 1. کتابخانه مورد نیاز رو نصب کن:
 ```bash
 pip install python-telegram-bot
----
 
+---
 **نویسنده:** محمد شهابی  
-📧 ایمیل: 9mohammadshahabi9.com  
+📧 ایمیل: (9mohammadshahabi9.com)  
 💬 تلگرام: [@mmdshahabii](https://t.me/mmdshahabii)

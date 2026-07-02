@@ -9,17 +9,20 @@ PRODUCTS = {
     "python book":{
         "name" : "کتاب آموزش پایتون 📘",
         "price" : "220 هزار تومان",
-        "description" : "کتاب کامل پایتون از مبتدی تا پیشرفته"
+        "description" : "کتاب کامل پایتون از مبتدی تا پیشرفته",
+        "file_path" : "e:/GitHub/telegram-bots/files/python_book.pdf"
     },
     "robot_book": {
         "name": "کتاب ساخت ربات تلگرام 🤖",
         "price": "150 هزار تومان",
-        "description": "آموزش ساخت ربات با پایتون + ۱۰ پروژه"
+        "description": "آموزش ساخت ربات با پایتون + ۱۰ پروژه",
+        "file_path" : "e:/GitHub/telegram-bots/files/robot_book.pdf"
     },
     "web_course": {
         "name": "دوره طراحی وب 💻",
         "price": "300 هزار تومان",
-        "description": "دوره ۱۰ ساعته HTML, CSS, JavaScript"
+        "description": "دوره ۱۰ ساعته HTML, CSS, JavaScript",
+        "file_path" : None
     }
 
 }
@@ -85,12 +88,28 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     product=PRODUCTS[product_id]
 
     await update.message.reply_text(
-        f"✅ {user_name} جان، رسید دریافت شد!\n\n"
-        f"📦 **محصول شما:** {product['name']}\n"
-        f"💰 **مبلغ:** {product['price']}\n\n"
-        f"🎉 به زودی فایل برات ارسال می‌شه.",
-        parse_mode="Markdown"
+        f"✅ {user_name} جان، رسید دریافت شد!\n"
+        f"📦 در حال ارسال {product['name']}..."
     )
+    
+    file_path=product.get("file_path")
+    if file_path:
+        try:
+            with open(file_path , "rb") as file:
+                await update.message.reply_document(
+                    document=file ,
+                    filename=f"{product['name']}.pdf" , 
+                    caption=f"📦 {product['name']}\n\n🎉 ممنون از خریدت!"
+                )
+        except FileNotFoundError:
+            await update.message.reply_text(
+                "⚠️ فایل محصول موقتاً در دسترس نیست. با پشتیبانی تماس بگیر."
+            )
+    else:
+        await update.message.reply_text(
+        "📦 این محصول فایل دانلودی نداره. اطلاعات از طریق پیام ارسال می‌شه."
+        )
+    
     del context.user_data["selected_product"]
 
 def main():

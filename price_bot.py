@@ -85,35 +85,7 @@ def get_usd_irr():
         return 175000
 
 def get_gold_prices():
-    """دریافت قیمت طلا و سکه"""
-    url = "https://api.tgju.org/v1/market/indicator/summary"
-
-    indicators = {
-        "sekee": "سکه امامی",
-        "nim" : "نیم سکه",
-        "rob" : "ربع سکه",
-        "geram18" : "گرم طلا 18 عیار",
-        "geram24" : "گرم طلا 24 عیار",
-        "mithqal" : "مثقال طلا"
-    }
-
-    try:
-        text = "🥇 **قیمت طلا و سکه:**\n\n"
-
-        for key , name in indicators.items():
-            try:
-                url_item = f"https://api.tgju.org/v1/market/indicator/summary/price_{key}"
-                response = requests.get(url_item , timeout=10)
-                data = response.json()
-                price = data["response"]["indicators"]["p"]["p"]
-                text += f"💰 {name}: **{price:,} تومان**\n"
-            except:
-                text += f"💰 {name}: **در دسترس نیست**\n"
-            
-        return text
-    except Exception as e:
-        print(f"Error fetching gold: {e}")
-        return "❌ خطا در دریافت قیمت طلا و سکه."
+    return "🥇 **قیمت طلا و سکه:**\n\n⚠️ در حال حاضر در دسترس نیست. لطفاً از منابع داخلی استعلام بگیرید."
 
 
 async def start_command(update:Update, context: ContextTypes.DEFAULT_TYPE):
